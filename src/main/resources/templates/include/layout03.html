@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="함수(section)">
+
+<head>
+<meta charset="UTF-8">
+<title>시벌</title>
+</head>
+<body>
+	
+	<header>
+		<h3>템플릿 모형의 인클루드 header 부분</h3>
+	</header>
+	
+	<section>
+		<th:block th:replace="${section}"></th:block>
+	</section>
+	
+	<footer>
+		<h3>템플릿 모형의 인클루드 footer 부분</h3>
+	</footer>
+	
+</body>
+</th:block>
+
+<script>var a= 1;</script>
+
+</html>
+

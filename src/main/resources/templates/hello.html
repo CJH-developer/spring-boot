@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	타임리프 적용된 화면
+	[[${serverTime}]]
+	[[${name}]]
+	
+<!-- 1.
+클라이언트 fetch
+요청주소 : /api/v1/getData
+메서드 : get
+클라이언트에서 보낼데이터는 : num, name
+서버에서 보낼데이터는 : SimpleVO
+받을 수 있는 restAPI를 생성, 클라이언트에서는 fetch로 호출 -->
+	
+	
+	<script>
+	
+	 (async function(){
+		 let c = await fetch("/api/v1/getData?name=홍길동&num=20").then( (response) => response.json())
+		 console.log(c);
+		
+		})();
+	
+	 
+	 (async function(){
+		 	 	
+			let b = await fetch("/api/v1/getInfo", {
+					method : "POST",
+					headers : {
+						"Content-Type" : "application/json",
+					},
+					body : JSON.stringify( {"num" : 20, "name" : "홍길동"} )
+				}).then(
+					response => response.json()		
+				)
+				console.log(b);
+			})();
+	 
+	
+	
+/* 	(async function(){
+	
+		let a = await fetch("/aaa")
+		              .then((response) => response.text())
+		console.log(a);
+		
+		let b = await fetch("/getJSON", {
+				method : "POST",
+				header : {
+					"Content-Type" : "application/json",
+				},
+				body : JSON.stringify({"id" : "홍길동", "age" : 20})
+			}).then(
+				response => response.text()		
+			)
+			console.log(b);
+		})(); */
+		
+		
+	
+		
+	</script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+	<h3> 다양한 파일 업로드 예제 </h3>
+	
+	<!-- form 타입을 multipart 타입으로 무조건 한다. -->
+	<form action="upload_ok" method="post" enctype="multipart/form-data">
+	
+		파일선택 : <input type="file" name="file" />
+		<input type="submit" value="업로드">
+	
+	</form>
+	
+	<h3> multiple 을 사용한 여러 파일 업로드</h3>
+	<form action="upload_ok2" method="post" enctype="multipart/form-data">
+		<input type="file" name="file" multiple="multiple">
+		<input type="submit" value="업로드">
+	</form>
+	
+	<h3> multiple 을 사용한 여러 파일 업로드</h3>
+	<form action="upload_ok3" method="post" enctype="multipart/form-data">
+		<input type="file" name="file">
+		<input type="file" name="file">
+		<input type="file" name="file">
+		<input type="file" name="file">
+		<input type="submit" value="업로드">
+	</form>
+	
+	<h3> 비동기적 업로드 처리 </h3>
+	<div>
+		<input type="text" name="writer">
+		<input type="file" name="file_a">
+	</div>
+	<button id="uploadBtn">비동기파일전송</button>
+	
+	<script>
+	
+	$("#uploadBtn").on("click", function(){
+		var writer = $("input[name=writer]").val();
+		var file = $("input[name=file_a]");
+		
+		console.log(writer);
+		console.log(file[0]);
+		console.log(file[0].files); // 사용자가 올린 파일데이터
+		
+		// JS FROM 방식 사용
+		var form = new FormData();
+		form.append("writer", writer);
+		form.append("file", file[0].files[0]);
+		
+		//ajax로 form 전송
+		$.ajax({
+			type:"post",
+			url :"upload_ok4",
+			processData:false, // 자동으로 get 방식의 폼형식으로 나열, 그것을 방지하는 속성
+			contentType:false, // 타입이 multipart/form-data 타입이 된다.
+			data:form, // 폼타입 데이터
+			success: function(data){
+				console.log(data);
+			},
+			error : function(err, status){
+				console.log(err);
+				console.log(status);
+			}
+		})
+	});
+	
+		
+	</script>
+	
+	
+</body>
+</html>
+
+
+
+
+
+
+
